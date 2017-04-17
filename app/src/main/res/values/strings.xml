@@ -4,4 +4,7 @@
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="signin_label">Sign In</string>
+    
+    <string name="cars_tab_label">Cars</string>
+    <string name="orders_tab_label">Orders</string>
 </resources>
