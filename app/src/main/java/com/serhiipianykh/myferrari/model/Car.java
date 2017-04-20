@@ -1,16 +1,28 @@
 package com.serhiipianykh.myferrari.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by serhiipianykh on 2017-04-19.
  */
 
-public class Car {
+public class Car implements Parcelable {
 
     private String model;
     private String vin;
     private byte[] photo;
     private long purchaseDate;
     private CarStatus status;
+
+    public Car(Parcel in) {
+        this.model = in.readString();
+        this.vin = in.readString();
+        this.photo = in.createByteArray();
+        this.purchaseDate = in.readLong();
+    }
 
     public Car(String model, String vin, long purchaseDate) {
         this.model = model;
@@ -67,4 +79,28 @@ public class Car {
     public void setStatus(CarStatus status) {
         this.status = status;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(model);
+        dest.writeString(vin);
+        dest.writeByteArray(photo);
+        dest.writeLong(purchaseDate);
+        dest.writeValue(status);
+    }
+
+    public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>(){
+        public Car createFromParcel(Parcel in) {
+            return new Car(in);
+        }
+
+        public Car[] newArray(int size) {
+            return new Car[size];
+        }
+    };
 }

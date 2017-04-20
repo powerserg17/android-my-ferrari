@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
     <Spinner
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:id="@+id/car_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:theme="@style/ThemeSpinner"
+        android:scrollbarSize="40dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,20 +23,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="10dp">
+
         <Button
+            android:id="@+id/date_on_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/select_date"
             android:background="@color/colorAccent"
-            android:textColor="@color/ferrari_yellow"/>
+            android:text="@string/select_date"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp" />
         <Button
+            android:id="@+id/time_on_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/select_time"
             android:background="@color/colorAccent"
-            android:textColor="@color/ferrari_yellow"/>
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -48,19 +56,23 @@
         android:orientation="horizontal"
         android:layout_margin="10dp">
         <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/select_date"
+            android:id="@+id/date_off_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/select_date"
             android:background="@color/colorAccent"
-            android:textColor="@color/ferrari_yellow"/>
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp"/>
         <Button
+            android:id="@+id/time_off_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/select_time"
             android:background="@color/colorAccent"
-            android:textColor="@color/ferrari_yellow"/>
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp"/>
     </LinearLayout>
     <Button
         android:id="@+id/go_to_location_btn"
@@ -69,5 +81,5 @@
         android:text="@string/go_to_location"
         android:layout_margin="10dp"
         android:background="@color/colorAccent"
-        android:textColor="@color/ferrari_yellow"/>
+        android:textColor="@android:color/white"/>
 </LinearLayout>

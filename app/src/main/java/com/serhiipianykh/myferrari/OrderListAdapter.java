@@ -14,6 +14,8 @@ import com.serhiipianykh.myferrari.model.Car;
 import com.serhiipianykh.myferrari.model.Order;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,8 +68,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             String city = addresses.get(0).getLocality();
             String country = addresses.get(0).getCountryName();
             holder.orderLocation.setText(context.getString(R.string.location, city, country));
-            holder.orderDateOn.setText(context.getString(R.string.date_on, Long.toString(orders.get(position).getDateOn())));
-            holder.orderDateOff.setText(context.getString(R.string.date_off, Long.toString(orders.get(position).getDateOff())));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+            holder.orderDateOn.setText(context.getString(R.string.date_on, sdf.format(new Date(orders.get(position).getDateOn()))));
+            holder.orderDateOff.setText(context.getString(R.string.date_off, sdf.format(new Date(orders.get(position).getDateOff()))));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

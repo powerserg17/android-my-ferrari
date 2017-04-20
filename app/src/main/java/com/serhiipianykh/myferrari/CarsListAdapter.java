@@ -51,6 +51,7 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarsListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.carModel.setText(cars.get(position).getModel());
         holder.carStatus.setText(context.getString(R.string.status, cars.get(position).getStatus().toString(context)));
+        holder.carPhoto.setImageResource(context.getResources().getIdentifier("ferrari_"+cars.get(position).getModel().toLowerCase(), "drawable", context.getPackageName()));
     }
 
     @Override

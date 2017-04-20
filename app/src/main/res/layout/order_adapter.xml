@@ -11,9 +11,8 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:layout_marginLeft="5dp"
-        android:background="@color/colorPrimary"
         android:paddingLeft="15dp"
-        card_view:cardBackgroundColor="@color/cardview_light_background"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="4dp"
         card_view:contentPadding="10dp"
         android:elevation="@dimen/cardview_default_elevation">
@@ -32,14 +31,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="25dp"
-                    android:layout_alignParentTop="true"/>
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/colorAccent"/>
                 <TextView
                     android:id="@+id/order_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:layout_alignParentBottom="true"
-                    />
+                    android:textColor="@color/ferrari_yellow"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -51,14 +51,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:layout_alignParentTop="true"/>
+                    android:layout_alignParentTop="true"
+                    android:textColor="@android:color/white"/>
                 <TextView
                     android:id="@+id/order_date_off"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:layout_alignParentBottom="true"
-                    />
+                    android:textColor="@android:color/white"/>
             </RelativeLayout>
         </LinearLayout>
 
