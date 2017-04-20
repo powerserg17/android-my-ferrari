@@ -7,4 +7,13 @@
     
     <string name="cars_tab_label">Cars</string>
     <string name="orders_tab_label">Orders</string>
+
+    <string name="status">Status: %1$s</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_service">In service</string>
+    <string name="status_out">Out</string>
+
+    <string name="location">Location: %1$s, %2$s</string>
+    <string name="date_on">Date start: %1$s</string>
+    <string name="date_off">Date finish: %1$s</string>
 </resources>
