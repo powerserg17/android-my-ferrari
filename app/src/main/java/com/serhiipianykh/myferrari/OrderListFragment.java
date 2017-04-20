@@ -35,7 +35,9 @@ public class OrderListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         orders = new ArrayList<>();
-        orders.add(new Order(new Car("599XX", "111", 1234), 50.3308, 6.942, 1491814800000l, 1491930000000l));
+        for (Car car : CarsListFragment.cars) {
+            orders.add(new Order(car, 50.3308, 6.942, 1491814800000l, 1491930000000l));
+        }
     }
 
     @Nullable
@@ -51,9 +53,7 @@ public class OrderListFragment extends Fragment {
         addOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Car> cars = new ArrayList<Car>();
-                cars.add(orders.get(0).getCar());
-                carPickerDialog = CarPickerDialog.newInstance(cars);
+                carPickerDialog = CarPickerDialog.newInstance(new ArrayList<>(CarsListFragment.cars));
                 FragmentManager fm = getChildFragmentManager();
                 carPickerDialog.show(fm,"TAG");
             }

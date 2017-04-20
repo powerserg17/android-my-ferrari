@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.serhiipianykh.myferrari.model.Car;
+import com.serhiipianykh.myferrari.model.Order;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,8 +44,8 @@ public class CarPickerDialog extends DialogFragment {
     private Button dateOff;
     private Button timeOff;
 
-    private long dateStart;
-    private long dateFinish;
+    private long dateStart = 0;
+    private long dateFinish = 0;
 
     public static CarPickerDialog newInstance(ArrayList<Car> cars) {
 
@@ -78,11 +79,14 @@ public class CarPickerDialog extends DialogFragment {
         carSelector.setAdapter(dataAdapter);
 
         location = (Button) v.findViewById(R.id.go_to_location_btn);
+        location.setEnabled(false);
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OrderActivity.class);
-                startActivity(intent);
+                Order order = new Order(cars.get(carSelector.getSelectedItemPosition()), dateStart, dateFinish);
+                intent.putExtra("order",order);
+                startActivityForResult(intent, 100);
             }
         });
 
@@ -159,7 +163,6 @@ public class CarPickerDialog extends DialogFragment {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             dateOff.setText(sdf.format(date));
             timeOff.setEnabled(true);
-
         }
 
         if (requestCode == TIME_ON) {
@@ -176,6 +179,15 @@ public class CarPickerDialog extends DialogFragment {
             dateFinish += hour * 60 * 60 * 1000;
             dateFinish += minute * 60 * 1000;
             timeOff.setText(getString(R.string.time_formatter, hour, minute));
+        }
+
+        canProceed();
+
+    }
+
+    private void canProceed() {
+        if (dateStart>0 && dateFinish>0) {
+            location.setEnabled(true);
         }
     }
 }

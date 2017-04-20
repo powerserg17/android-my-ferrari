@@ -1,5 +1,6 @@
 package com.serhiipianykh.myferrari;
 
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,11 +8,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.serhiipianykh.myferrari.model.Order;
 
 /**
  * Created by serhiipianykh on 2017-04-20.
@@ -20,12 +26,18 @@ import com.mapbox.mapboxsdk.maps.MapView;
 public class MapFragment extends Fragment {
 
     private MapView mapView;
+    private MapboxMap mapboxMap;
 
-    public static MapFragment newInstance() {
+    private Order order;
+
+    private Button selectLocation;
+    private ImageView dropPinView;
+
+    public static MapFragment newInstance(Order passedOrder) {
 
         Bundle args = new Bundle();
-
         MapFragment fragment = new MapFragment();
+        args.putParcelable("order",passedOrder);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,6 +45,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        order = getArguments().getParcelable("order");
         Mapbox.getInstance(getContext(), "pk.eyJ1Ijoic2VyaGlpcGlhbnlraCIsImEiOiJjajFxZ3MxOXIwMDY5MndvNXFpNGVvd3Z5In0.1OLgfulreEZMlvkT-RU1vg");
     }
 
@@ -44,7 +57,7 @@ public class MapFragment extends Fragment {
         mapView = (MapView)v.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
-        ImageView dropPinView = new ImageView(getContext());
+        dropPinView = new ImageView(getContext());
         dropPinView.setImageResource(R.drawable.map_marker);
 
         // Statically Set drop pin in center of screen
@@ -58,7 +71,32 @@ public class MapFragment extends Fragment {
         dropPinView.setLayoutParams(params);
         mapView.addView(dropPinView);
 
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap map) {
+                //Store for later
+                mapboxMap = map;
+            }
+        });
+
+        selectLocation = (Button)v.findViewById(R.id.select_location_btn);
+        selectLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LatLng position = getMarkerLocation();
+                order.setLatitude(position.getLatitude());
+                order.setLongitude(position.getLongitude());
+                
+            }
+        });
+
         return v;
+    }
+
+    private LatLng getMarkerLocation() {
+        return mapboxMap.getProjection().fromScreenLocation(
+                new PointF(dropPinView.getLeft() + (dropPinView.getWidth() / 2), dropPinView.getBottom())
+        );
     }
 
     @Override

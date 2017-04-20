@@ -1,10 +1,13 @@
 package com.serhiipianykh.myferrari.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by serhiipianykh on 2017-04-19.
  */
 
-public class Order {
+public class Order implements Parcelable{
 
     private Car car;
     private double latitude;
@@ -18,6 +21,21 @@ public class Order {
         this.longitude = longitude;
         this.dateOn = dateOn;
         this.dateOff = dateOff;
+    }
+
+
+    public Order(Car car, long dateOn, long dateOff) {
+        this.car = car;
+        this.dateOn = dateOn;
+        this.dateOff = dateOff;
+    }
+
+    public Order(Parcel in) {
+        this.dateOn = in.readLong();
+        this.dateOff = in.readLong();
+        this.car = in.readParcelable(Car.class.getClassLoader());
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
     }
 
     public Car getCar() {
@@ -59,4 +77,28 @@ public class Order {
     public void setDateOff(long dateOff) {
         this.dateOff = dateOff;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(dateOn);
+        dest.writeLong(dateOff);
+        dest.writeParcelable(car, 0);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+    }
+
+    public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>(){
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 }

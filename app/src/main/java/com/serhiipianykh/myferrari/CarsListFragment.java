@@ -20,7 +20,7 @@ import java.util.List;
 
 public class CarsListFragment extends Fragment {
 
-    private List<Car> cars;
+    public static List<Car> cars;
 
     private RecyclerView recyclerView;
 
