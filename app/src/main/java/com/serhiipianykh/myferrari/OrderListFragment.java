@@ -1,8 +1,11 @@
 package com.serhiipianykh.myferrari;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +27,9 @@ public class OrderListFragment extends Fragment {
     private List<Order> orders;
 
     private RecyclerView recyclerView;
+    private FloatingActionButton addOrderBtn;
+
+    private CarPickerDialog carPickerDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +46,16 @@ public class OrderListFragment extends Fragment {
         recyclerView = (RecyclerView)v.findViewById(R.id.orders_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new OrderListAdapter(getContext(), orders));
+
+        addOrderBtn = (FloatingActionButton)v.findViewById(R.id.add_order_fab);
+        addOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carPickerDialog = CarPickerDialog.newInstance();
+                FragmentManager fm = getChildFragmentManager();
+                carPickerDialog.show(fm,"TAG");
+            }
+        });
 
         return v;
     }
