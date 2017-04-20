@@ -1,5 +1,6 @@
 package com.serhiipianykh.myferrari;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class OrderListFragment extends Fragment {
 
-    private List<Order> orders;
+    public static List<Order> orders;
 
     private RecyclerView recyclerView;
     private FloatingActionButton addOrderBtn;
@@ -38,6 +39,12 @@ public class OrderListFragment extends Fragment {
         for (Car car : CarsListFragment.cars) {
             orders.add(new Order(car, 50.3308, 6.942, 1491814800000l, 1491930000000l));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @Nullable
@@ -62,4 +69,16 @@ public class OrderListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == 100) {
+            Order order = data.getExtras().getParcelable("order");
+            orders.add(order);
+            recyclerView.getAdapter().notifyDataSetChanged();
+        }
+    }
 }

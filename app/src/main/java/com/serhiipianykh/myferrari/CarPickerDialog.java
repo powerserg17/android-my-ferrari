@@ -87,6 +87,7 @@ public class CarPickerDialog extends DialogFragment {
                 Order order = new Order(cars.get(carSelector.getSelectedItemPosition()), dateStart, dateFinish);
                 intent.putExtra("order",order);
                 startActivityForResult(intent, 100);
+                dismiss();
             }
         });
 
@@ -180,6 +181,7 @@ public class CarPickerDialog extends DialogFragment {
             dateFinish += minute * 60 * 1000;
             timeOff.setText(getString(R.string.time_formatter, hour, minute));
         }
+
 
         canProceed();
 

@@ -1,5 +1,7 @@
 package com.serhiipianykh.myferrari;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -86,7 +88,11 @@ public class MapFragment extends Fragment {
                 LatLng position = getMarkerLocation();
                 order.setLatitude(position.getLatitude());
                 order.setLongitude(position.getLongitude());
-                
+                OrderListFragment.orders.add(order);
+                Intent intent = new Intent();
+                intent.putExtra("order",order);
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
             }
         });
 

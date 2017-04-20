@@ -32,4 +32,5 @@ public class MainFragment extends Fragment {
         mFragmentTransaction.replace(R.id.containerView, new MainTabFragment()).commit();
         return v;
     }
+
 }
